@@ -37,7 +37,6 @@ document.addEventListener('alpine:init', () => {
     add(newItem) {
       // Cek apakah barang sudah ada di keranjang
       const cartItem = this.items.find((item) => item.id === newItem.id);
-
       if (!cartItem) {
         this.items.push({ ...newItem, quantity: 1, total: newItem.price });
         this.quantity++;
