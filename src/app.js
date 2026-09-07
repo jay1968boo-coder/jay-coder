@@ -214,7 +214,7 @@ const kirimData = (e) => {
   message += `Terima kasih!`;
 
   // Ganti nomor WhatsApp tujuan di bawah ini (gunakan format internasional tanpa +)
-  const noWhatsApp = '6281234567890'; 
+  const noWhatsApp = '6289530768006'; 
   const targetURL = `https://wa.me/${noWhatsApp}?text=${encodeURIComponent(message)}`;
 
   window.open(targetURL, '_blank');
