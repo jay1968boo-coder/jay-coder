@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warung Bakso Modern</title>
+
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,700&display=swap" rel="stylesheet">
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- My Style -->
+    <link rel="stylesheet" href="CSS/style.css">
+
+    <!-- App JS -->
+    <script src="src/app.js" async></script>
+
+    <!-- AlpineJS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+</head>
+
+<body>
+
+    <!-- Navbar Start -->
+    <nav class="navbar" x-data>
+        <a href="#" class="navbar-logo">bakso<span>Naufal</span></a>
+
+        <div class="navbar-nav">
+            <a href="#home">Home</a>
+            <a href="#about">Tentang Kami</a>
+            <a href="#menu">Menu</a>
+            <a href="#products">Produk</a>
+            <a href="#contact">Kontak</a>
+        </div>
+
+        <div class="navbar-extra">
+            <a href="#" id="search-button"><i data-feather="search"></i></a>
+            <a href="#" id="shopping-cart-button">
+                <i data-feather="shopping-cart"></i>
+                <span class="quantity-badge" x-show="$store.cart.quantity" x-text="$store.cart.quantity"></span>
+            </a>
+            <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+        </div>
+
+<!-- Search Form Start -->
+<div class="search-form">
+    <input 
+        type="search" 
+        id="search-box" 
+        placeholder="Cari menu..." 
+        x-model="$store.search.keyword"
+        @keyup.enter="document.querySelector('#products').scrollIntoView({ behavior: 'smooth' })"
+    >
+    <label for="search-box"><i data-feather="search"></i></label>
+</div>
+<!-- Search Form End -->
+
+        <!-- Shopping Cart Start -->
+        <div class="shopping-cart">
+            <!-- LOOP PRODUK KERANJANG -->
+            <template x-for="(item, index) in $store.cart.items" :key="index">
+                <div class="cart-item">
+                    <img :src="`${item.img}`" :alt="item.name">
+                    <div class="item-detail">
+                        <h3 x-text="item.name"></h3>
+                        <div class="item-price">
+                            <span x-text="rupiah(item.price)"></span> &times;
+                            <button class="remove-item" @click="$store.cart.remove(item.id)">&minus;</button>
+                            <span x-text="item.quantity"></span>
+                            <button class="add-item" @click="$store.cart.add(item)">&plus;</button> &equals;
+                            <span x-text="rupiah(item.total)"></span>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- STATUS KERANJANG -->
+            <h4 x-show="!$store.cart.items.length" style="margin: 1rem;">Keranjang Kosong</h4>
+            <h4 x-show="$store.cart.items.length">Total : <span x-text="rupiah($store.cart.total)"></span></h4>
+
+            <!-- FORM CHECKOUT -->
+            <div class="form-container" x-show="$store.cart.items.length" x-data="{ name: '', phone: '' }">
+                <form id="checkoutForm" @submit.prevent="kirimData($event)">
+                    <input type="hidden" name="items" :value="JSON.stringify($store.cart.items)">
+                    <input type="hidden" name="total" :value="$store.cart.total">
+                    
+                    <h5>Customer Detail</h5>
+
+                    <label for="name">
+                        <span>Nama</span>
+                        <input type="text" name="name" id="name" x-model="name" required>
+                    </label>
+
+                    <label for="phone">
+                        <span>No. HP / WA</span>
+                        <input type="tel" name="phone" id="phone" autocomplete="off" x-model="phone" required>
+                    </label>
+
+                    <button 
+                        class="checkout-button" 
+                        :class="{ 'disabled': !name || !phone }"
+                        type="submit" 
+                        id="checkout-button"
+                        :disabled="!name || !phone">
+                        Checkout
+                    </button>
+                </form> 
+            </div>
+        </div>
+        <!-- Shopping Cart End -->
+    </nav>
+    <!-- Navbar End -->
+    
+    <!-- Hero Section Start -->
+    <section class="hero" id="home">
+        <main class="content">
+            <h1>Mari Nikmati Semangkok <span>Bakso</span></h1>
+            <p>Sensasi bakso gurih dengan bahan berkualitas dan kuah kaya rempah.</p>
+        </main>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- About Section Start -->
+    <section id="about" class="about">
+        <h2><span>Tentang</span> Kami</h2>
+
+        <div class="row">
+            <div class="about-img">
+                <img src="img/tentang-kami.jpg" alt="Tentang Kami">
+            </div>
+            <div class="content">
+                <h3>Kenapa memilih Mie Ayam & Bakso kami</h3>
+                <p>Kami menyajikan hidangan bakso dan mie ayam berkualitas dengan resep turun-temurun, daging sapi pilihan, serta kuah yang kaya rasa.</p>
+                <p>Nikmati suasana makan yang nyaman dan pelayanan terbaik untuk Anda dan keluarga.</p>
+            </div>
+        </div>
+    </section>
+    <!-- About Section End -->
+
+    <!-- Menu Section Start -->
+    <section id="menu" class="menu">
+        <h2><span>Menu</span> Kami</h2>
+        <p>Pilihan menu lezat racikan khas Bakso Naufal.</p>
+
+        <div class="row">
+            <div class="menu-card">
+                <img src="img/menu/menu1.jpg" alt="Bakso Biasa" class="menu-card-img">
+                <h3 class="menu-card-title">- Bakso Biasa -</h3>
+                <p class="menu-card-price">IDR 10K</p>
+            </div>
+            <div class="menu-card">
+                <img src="img/menu/menu2.jpg" alt="Bakso Spesial" class="menu-card-img">
+                <h3 class="menu-card-title">- Bakso Spesial -</h3>
+                <p class="menu-card-price">IDR 15K</p>
+            </div>
+            <div class="menu-card">
+                <img src="img/menu/menu3.jpg" alt="Mie Ayam" class="menu-card-img">
+                <h3 class="menu-card-title">- Mie Ayam -</h3>
+                <p class="menu-card-price">IDR 10K</p>
+            </div>
+            <div class="menu-card">
+                <img src="img/menu/menu4.jpg" alt="Mie Ayam Bakso" class="menu-card-img">
+                <h3 class="menu-card-title">- Mie Ayam Bakso -</h3>
+                <p class="menu-card-price">IDR 15K</p>
+            </div>
+            <div class="menu-card">
+                <img src="img/menu/menu5.jpg" alt="Mie Ayam Spesial" class="menu-card-img">
+                <h3 class="menu-card-title">- Mie Ayam Spesial -</h3>
+                <p class="menu-card-price">IDR 15K</p>
+            </div>
+            <div class="menu-card">
+                <img src="img/menu/menu6.jpg" alt="Iced Latte" class="menu-card-img">
+                <h3 class="menu-card-title">- Es Teh Manis -</h3>
+                <p class="menu-card-price">IDR 5K</p>
+            </div>
+        </div>
+    </section> 
+    <!-- Menu Section End -->
+
+    <!-- Products Section Start -->
+    <section class="products" id="products" x-data="products">
+    <h2><span>Produk Unggulan</span> Kami</h2>
+
+    <div class="row">
+        <template x-for="(item, index) in filteredItems" :key="`product-${item.id}-${index}`">
+            <div class="product-card">
+                <div class="product-icons">
+                    <!-- Tombol Tambah Keranjang -->
+                    <a href="#" @click.prevent="$store.cart.add(item)">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                    </a>
+                    
+                    <!-- Tombol Detail Modal -->
+                    <a href="#" class="item-detail-button" 
+                       :data-id="item.id"
+                       :data-name="item.name" 
+                       :data-img="item.img" 
+                       :data-price="typeof rupiah === 'function' ? rupiah(item.price) : `Rp ${item.price}`"
+                       :data-description="item.desc || 'Deskripsi lezat belum tersedia.'">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="product-image">
+                    <img :src="item.img" :alt="item.name">
+                </div>
+
+                <div class="product-content">
+                    <h3 x-text="item.name"></h3>
+                    <div class="product-stars">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                    </div>
+                    <div class="product-price">
+                        <span x-text="typeof rupiah === 'function' ? rupiah(item.price) : `Rp ${item.price}`"></span>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+</section>
+    <!-- Products Section End -->
+
+    <!-- Contact Section Start -->
+    <section id="contact" class="contact">
+        <h2><span>Kontak</span> Kami</h2>
+        <p>Hubungi kami untuk pemesanan atau pertanyaan lebih lanjut.</p>
+
+        <div class="row">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d3975.5815365876406!2d104.8656253240069!3d-4.841681749846526!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sPASAR%20SENTRAL!5e0!3m2!1sid!2sid!4v1786872257305!5m2!1sid!2sid" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" class="map"></iframe>
+
+            <form action="" method="POST">
+                <div class="input-group">
+                    <i data-feather="user"></i>
+                    <input type="text" placeholder="Nama">
+                </div>
+                <div class="input-group">
+                    <i data-feather="mail"></i>
+                    <input type="email" placeholder="Email">
+                </div>
+                <div class="input-group">
+                    <i data-feather="phone"></i>
+                    <input type="tel" placeholder="No HP">
+                </div>
+                <button type="submit" class="btn">Kirim Pesan</button>
+            </form>
+        </div>
+    </section>   
+    <!-- Contact Section End -->
+
+    <!-- Footer Start -->
+    <footer>
+        <div class="socials">
+            <a href="#"><i data-feather="instagram"></i></a>
+            <a href="#"><i data-feather="twitter"></i></a>
+            <a href="#"><i data-feather="facebook"></i></a>
+        </div>
+
+        <div class="links">
+            <a href="#home">Home</a>
+            <a href="#about">Tentang Kami</a>
+            <a href="#menu">Menu</a>
+            <a href="#products">Produk</a>
+            <a href="#contact">Kontak</a>
+        </div>
+
+        <div class="credit">
+            <p>Created by <a href="#">Bakso Naufal</a>. | &copy; 2026.</p>
+        </div>
+    </footer>
+    <!-- Footer End -->
+
+    <!-- Modal Box Item Detail Start -->
+    <div class="modal" id="item-detail-modal" style="display: none;">
+        <div class="modal-container">
+            <a href="#" class="close-icon" id="close-modal-btn">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <use href="img/feather-sprite.svg#x" />
+                </svg>
+            </a>
+            <div class="modal-content">
+                <img class="modal-img" src="" alt="">
+                <div class="product-content">
+                    <h3 class="modal-title"></h3>
+                    <p class="modal-desc"></p>
+                    <div class="product-stars">
+                        <svg width="24" height="24" fill="currentColor"><use href="img/feather-sprite.svg#star" /></svg>
+                        <svg width="24" height="24" fill="currentColor"><use href="img/feather-sprite.svg#star" /></svg>
+                        <svg width="24" height="24" fill="currentColor"><use href="img/feather-sprite.svg#star" /></svg>
+                        <svg width="24" height="24" fill="currentColor"><use href="img/feather-sprite.svg#star" /></svg>
+                        <svg width="24" height="24" fill="currentColor"><use href="img/feather-sprite.svg#star" /></svg>
+                    </div>
+                    <div class="product-price"><span class="modal-price"></span></div>
+                    <a href="#" id="modal-add-to-cart-btn">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <use href="img/feather-sprite.svg#shopping-cart" />
+                        </svg>
+                        <span>Add to Cart</span>
+                    </a>  
+                </div>                
+            </div>
+        </div>
+    </div>
+    <!-- Modal Box Item Detail End -->
+
+    <!-- Feather Icons Init -->
+    <script>
+        feather.replace();
+    </script>
+
+    <!-- My JavaScript -->
+    <script src="js/script.js"></script>
+</body>
+</html>
