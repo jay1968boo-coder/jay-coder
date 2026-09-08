@@ -345,7 +345,7 @@ body{
 .about .row .about-img img{
     width: 100%;
     mask-image: url(../img/splat-beans.svg);
-    mask-size: 50%;
+    mask-size: 70%;
     mask-repeat: no-repeat;
     mask-position: center;
 }
@@ -356,7 +356,7 @@ body{
 }
 
 .about .row .content h3{
-    font-size: 1.8rem;
+    font-size: 2rem;
     margin-bottom: 1rem;
 
 }
@@ -364,7 +364,7 @@ body{
 .about .row .content p{
     margin-bottom: 0.8rem;
     font-size: 1.3rem;
-    font-weight: 100;
+    font-weight: 100, bold;
     line-height: 1.6;
 }
 
@@ -377,10 +377,11 @@ body{
 .products p,
 .contact p{
     text-align: center;
-    max-width: 30rem;
+    max-width: 20rem;
     margin: auto;
-    font-weight: 100;
+    font-weight: 100, bold;
     line-height: 1.6;
+    font-size: 1.6rem;
 }
 
 .menu .row{
