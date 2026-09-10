@@ -205,8 +205,8 @@ const kirimData = (e) => {
 
   // Format Pesan WhatsApp
   let message = `*Detail Pesanan Bakso Naufal*\n\n`;
-  message += `*Nama:* ${data.name}\n`;
-  message += `*No HP:* ${data.phone}\n\n`;
+  message += `Nama   : ${data.name}\n`;
+  message += `Alamat : ${data.phone}\n\n`;
   message += `*Daftar Pesanan:*\n`;
 
   items.forEach((item) => {
