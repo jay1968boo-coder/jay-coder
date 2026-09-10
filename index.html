@@ -33,9 +33,9 @@
 
         <div class="navbar-nav">
             <a href="#home">Home</a>
-            <a href="#about">Tentang Kami</a>
-            <a href="#menu">Menu</a>
             <a href="#products">Produk</a>
+            <a href="#menu">Menu</a>
+            <a href="#about">Tentang Kami</a>
             <a href="#contact">Kontak</a>
         </div>
 
@@ -126,63 +126,6 @@
     </section>
     <!-- Hero Section End -->
 
-    <!-- About Section Start -->
-    <section id="about" class="about">
-        <h2><span>Tentang</span> Kami</h2>
-
-        <div class="row">
-            <div class="about-img">
-                <img src="img/tentang-kami.jpg" alt="Tentang Kami">
-            </div>
-            <div class="content">
-                <h3>Kenapa memilih Mie Ayam & Bakso kami</h3>
-                <p>Kami menyajikan hidangan bakso dan mie ayam berkualitas dengan resep turun-temurun, daging sapi pilihan, serta kuah yang kaya rasa.</p>
-                <p>Nikmati suasana makan yang nyaman dan pelayanan terbaik untuk Anda dan keluarga.</p>
-            </div>
-        </div>
-    </section>
-    <!-- About Section End -->
-
-    <!-- Menu Section Start -->
-    <section id="menu" class="menu">
-        <h2><span>Menu</span> Kami</h2>
-        <p>Pilihan menu lezat racikan khas Bakso Naufal.</p>
-
-        <div class="row">
-            <div class="menu-card">
-                <img src="img/menu/menu1.jpg" alt="Bakso Biasa" class="menu-card-img">
-                <h3 class="menu-card-title">- Bakso Biasa -</h3>
-                <p class="menu-card-price">IDR 10K</p>
-            </div>
-            <div class="menu-card">
-                <img src="img/menu/menu2.jpg" alt="Bakso Spesial" class="menu-card-img">
-                <h3 class="menu-card-title">- Bakso Spesial -</h3>
-                <p class="menu-card-price">IDR 15K</p>
-            </div>
-            <div class="menu-card">
-                <img src="img/menu/menu3.jpg" alt="Mie Ayam" class="menu-card-img">
-                <h3 class="menu-card-title">- Mie Ayam -</h3>
-                <p class="menu-card-price">IDR 10K</p>
-            </div>
-            <div class="menu-card">
-                <img src="img/menu/menu4.jpg" alt="Mie Ayam Bakso" class="menu-card-img">
-                <h3 class="menu-card-title">- Mie Ayam Bakso -</h3>
-                <p class="menu-card-price">IDR 15K</p>
-            </div>
-            <div class="menu-card">
-                <img src="img/menu/menu5.jpg" alt="Mie Ayam Spesial" class="menu-card-img">
-                <h3 class="menu-card-title">- Mie Ayam Spesial -</h3>
-                <p class="menu-card-price">IDR 15K</p>
-            </div>
-            <div class="menu-card">
-                <img src="img/menu/menu6.jpg" alt="Iced Latte" class="menu-card-img">
-                <h3 class="menu-card-title">- Es Teh Manis -</h3>
-                <p class="menu-card-price">IDR 5K</p>
-            </div>
-        </div>
-    </section> 
-    <!-- Menu Section End -->
-
     <!-- Products Section Start -->
     <section class="products" id="products" x-data="products">
     <h2><span>Produk Unggulan</span> Kami</h2>
@@ -232,6 +175,50 @@
     </div>
 </section>
     <!-- Products Section End -->
+
+    <!-- Menu Section Start -->
+    <section class="menu" id="menu" x-data="products">
+        <h2><span>Menu</span> Kami</h2>
+        <p>Pilihan menu lezat racikan khas Bakso Naufal.</p>
+
+        <div class="row">
+            <template x-for="(item, index) in filteredItems" :key="`product-${item.id}-${index}`">
+            <div class="menu-card">
+            <div class="menu-image">
+                    <img :src="item.img" :alt="item.name">
+                </div>
+
+                <div class="menu-content">
+                    <h3 x-text="item.name"></h3>
+                    <!-- <div class="menu-stars">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                    </div> -->
+                    <div class="menu-price">
+                        <span x-text="typeof rupiah === 'function' ? rupiah(item.price) : `Rp ${item.price / 1000}`"></span>
+                    </div>
+                </div>    
+            </div>
+        </div>
+        </template>
+    </section> 
+    <!-- Menu Section End -->
+
+    <!-- About Section Start -->
+    <section id="about" class="about">
+        <h2><span>Tentang</span> Kami</h2>
+
+        <div class="row">
+            <div class="about-img">
+                <img src="img/tentang-kami.jpg" alt="Tentang Kami">
+            </div>
+            <div class="content">
+                <h3>Kenapa memilih Mie Ayam & Bakso kami</h3>
+                <p>Kami menyajikan hidangan bakso dan mie ayam berkualitas dengan resep turun-temurun, daging sapi pilihan, serta kuah yang kaya rasa.</p>
+                <p>Nikmati suasana makan yang nyaman dan pelayanan terbaik untuk Anda dan keluarga.</p>
+            </div>
+        </div>
+    </section>
+    <!-- About Section End -->
 
     <!-- Contact Section Start -->
     <section id="contact" class="contact">

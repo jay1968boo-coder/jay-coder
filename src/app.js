@@ -13,7 +13,10 @@ document.addEventListener('alpine:init', () => {
       { id: 3, name: 'Mie Ayam', img: 'img/product/tentang-kami3.jpg', price: 10000, desc: 'Mie kenyal dengan potongan daging ayam manis gurih.' },
       { id: 4, name: 'Mie Ayam Bakso', img: 'img/product/tentang-kami4.jpg', price: 15000, desc: 'Perpaduan mie ayam lezat dengan 2 butir bakso halus.' },
       { id: 5, name: 'Mie Ayam Spesial', img: 'img/product/tentang-kami5.jpg', price: 15000, desc: 'Mie ayam komplit dengan ceker dan bakso ekstra.' },
-      { id: 6, name: 'Es Teh Manis', img: 'img/product/iced-latte.jpg', price: 5000, desc: 'Kesegaran es teh manis penyegar setelah makan bakso.' }
+      { id: 6, name: 'Es Teh Manis', img: 'img/product/iced-latte.jpg', price: 5000, desc: 'Kesegaran es teh manis penyegar setelah makan bakso.' },
+      { id: 7, name: 'Kopi Susu', img: 'img/product/copi-susu.jpg', price: 5000, desc: 'Kesegaran es teh manis penyegar setelah makan bakso.' },
+      { id: 8, name: 'Kopi Hitam', img: 'img/product/kopi-hitam.jpg', price: 5000, desc: 'Kesegaran es marimas penyegar setelah makan bakso.' },
+      { id: 9, name: 'Marimas', img: 'img/product/marimas.jpg', price: 2000, desc: 'Kesegaran es marimas penyegar setelah makan bakso.' },
     ],
 
     // Getter untuk memfilter item berdasarkan kata kunci search di store
@@ -37,6 +40,7 @@ document.addEventListener('alpine:init', () => {
     add(newItem) {
       // Cek apakah barang sudah ada di keranjang
       const cartItem = this.items.find((item) => item.id === newItem.id);
+
       if (!cartItem) {
         this.items.push({ ...newItem, quantity: 1, total: newItem.price });
         this.quantity++;
