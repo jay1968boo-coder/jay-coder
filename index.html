@@ -85,7 +85,7 @@
             <h4 x-show="$store.cart.items.length">Total : <span x-text="rupiah($store.cart.total)"></span></h4>
 
             <!-- FORM CHECKOUT -->
-            <div class="form-container" x-show="$store.cart.items.length" x-data="{ name: '', phone: '' }">
+            <div class="form-container" x-show="$store.cart.items.length" x-data="{ name: '', address: '' }">
                 <form id="checkoutForm" @submit.prevent="kirimData($event)">
                     <input type="hidden" name="items" :value="JSON.stringify($store.cart.items)">
                     <input type="hidden" name="total" :value="$store.cart.total">
@@ -93,21 +93,21 @@
                     <h5>Customer Detail</h5>
 
                     <label for="name">
-                        <span>Nama   : </span>
+                        <span>Nama   :</span>
                         <input type="text" name="name" id="name" x-model="name" required>
                     </label>
 
-                    <label for="phone">
-                        <span>Alamat : </span>
-                        <input type="tel" name="phone" id="phone" autocomplete="off" x-model="phone" required>
+                    <label for="address">
+                        <span>Alamat :</span>
+                        <input type="text" name="address" id="address" autocomplete="off" x-model="address" required>
                     </label>
 
                     <button 
                         class="checkout-button" 
-                        :class="{ 'disabled': !name || !phone }"
+                        :class="{ 'disabled': !name || !address }"
                         type="submit" 
                         id="checkout-button"
-                        :disabled="!name || !phone">
+                        :disabled="!name || !address">
                         Checkout
                     </button>
                 </form> 
@@ -160,6 +160,7 @@
                 <div class="product-image">
                     <img :src="item.img" :alt="item.name">
                 </div>
+
                 <div class="product-content">
                     <h3 x-text="item.name"></h3>
                     <div class="product-stars">
