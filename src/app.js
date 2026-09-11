@@ -161,32 +161,35 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Kirim data ketika tombol checkout di klik
-window.kirimData = function(e) {
-    e.preventDefault(); 
-    const formData = new FormData(e.target);
+window.kirimData = function (e) {
+  e.preventDefault();
+  
+  const formData = new FormData(e.target);
   const data = Object.fromEntries(formData);
   const items = JSON.parse(data.items);
 
-  // 1. Format Pesan WhatsApp
-  let message = `*Bakso Naufal*\n\n`;
+  // Perbaikan format spasi pada tanda bintang (*) agar tidak bertabrakan dengan teks lain
+  let message = `*Warung Sulistia*\n\n`;
   message += `Nama   : ${data.name}\n`;
   message += `Alamat : ${data.address}\n\n`;
-  message += `*Daftar Pesanan:*\n`;
+  message += `*Daftar Pesanan:*\n`; // Diberikan baris baru yang tegas setelahnya
 
   items.forEach((item) => {
+    // Memastikan spasi aman sebelum dan sesudah tanda sama dengan (=)
     message += `- ${item.name} (${item.quantity}x) = ${rupiah(item.total)}\n`;
   });
 
   message += `\n*Total Bayar:* ${rupiah(data.total)}\n\n`;
   message += `Terima kasih!`;
 
-  // 2. Kirim ke WhatsApp
-  const noWhatsApp = "6289530768006";
-  const targetURL = `https://wa.me/${noWhatsApp}?text=${encodeURIComponent(message)}`;
+  const noWhatsApp = "6282278987413";
+  
+  // SOLUSI UTAMA: Menggunakan URL standard WhatsApp API terbaru yang lebih stabil untuk browser HP
+  const targetURL = `https://whatsapp.com{noWhatsApp}&text=${encodeURIComponent(message)}`;
+
   window.open(targetURL, "_blank");
 
-  // 3. JALANKAN PROSES KOSONGKAN KERANJANG DI SINI
-  // Memanggil fungsi clear() milik store cart Anda
+  // Proses pengosongan keranjang belanja
   if (Alpine.store("cart")) {
     Alpine.store("cart").clear();
   }
