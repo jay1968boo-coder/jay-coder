@@ -161,38 +161,31 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Kirim data ketika tombol checkout di klik
-window.kirimData = function (e) {
-  e.preventDefault();
-  
-  const formData = new FormData(e.target);
-  const data = Object.fromEntries(formData);
-  const items = JSON.parse(data.items);
+window.kirimData = function(e) {
+    e.preventDefault(); 
+    const formData = new FormData(e.target);
+    const data = new URLSearchParams(formData);
+    const objData = Object.fromEntries(data);
+    const message = formatMessage(objData);
+    
+    window.open(`https://wa.me/6289530768006?text=` + encodeURIComponent(message));
+    alert("Data berhasil diproses!");
+};
 
-  // Perbaikan format spasi pada tanda bintang (*) agar tidak bertabrakan dengan teks lain
-  let message = `*Warung Sulistia*\n\n`;
-  message += `Nama   : ${data.name}\n`;
-  message += `Alamat : ${data.address}\n\n`;
-  message += `*Daftar Pesanan:*\n`; // Diberikan baris baru yang tegas setelahnya
+const formatMessage = (obj) => {
+    const listPesanan = JSON.parse(obj.items).map((item) => {
+        return `- ${item.name} (${item.quantity} x ${rupiah(item.total)})\n`;
+    }).join('');
 
-  items.forEach((item) => {
-    // Memastikan spasi aman sebelum dan sesudah tanda sama dengan (=)
-    message += `- ${item.name} (${item.quantity}x) = ${rupiah(item.total)}\n`;
-  });
+    return `Data Customer:
+Nama: ${obj.name}
+No HP / WA: ${obj.phone}
 
-  message += `\n*Total Bayar:* ${rupiah(data.total)}\n\n`;
-  message += `Terima kasih!`;
+Data Pesanan:
+${listPesanan}
+Total: ${rupiah(obj.total)}
 
-  const noWhatsApp = "6282278987413";
-  
-  // SOLUSI UTAMA: Menggunakan URL standard WhatsApp API terbaru yang lebih stabil untuk browser HP
-  const targetURL = `https://whatsapp.com{noWhatsApp}&text=${encodeURIComponent(message)}`;
-
-  window.open(targetURL, "_blank");
-
-  // Proses pengosongan keranjang belanja
-  if (Alpine.store("cart")) {
-    Alpine.store("cart").clear();
-  }
+Terima Kasih.`;
 };
 
 // Konversi Angka ke Format Rupiah
@@ -202,4 +195,30 @@ const rupiah = (number) => {
     currency: 'IDR',
     minimumFractionDigits: 0
   }).format(number);
+};
+
+// Fungsi Kirim Data Form ke WhatsApp
+const kirimData = (e) => {
+  const formData = new FormData(e.target);
+  const data = Object.fromEntries(formData);
+  const items = JSON.parse(data.items);
+
+  // Format Pesan WhatsApp
+  let message = `*Detail Pesanan Bakso Naufal*\n\n`;
+  message += `Nama: ${data.name}\n`;
+  message += `Alamat: ${data.phone}\n\n`;
+  message += `*Daftar Pesanan:*\n`;
+
+  items.forEach((item) => {
+    message += `- ${item.name} (${item.quantity}x) = ${rupiah(item.total)}\n`;
+  });
+
+  message += `\n*Total Bayar:* ${rupiah(data.total)}\n\n`;
+  message += `Terima kasih!`;
+
+  // Ganti nomor WhatsApp tujuan di bawah ini (gunakan format internasional tanpa +)
+  const noWhatsApp = '6289530768006'; 
+  const targetURL = `https://wa.me/${noWhatsApp}?text=${encodeURIComponent(message)}`;
+
+  window.open(targetURL, '_blank');
 };
