@@ -160,34 +160,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Kirim data ketika tombol checkout di klik
-window.kirimData = function(e) {
-    e.preventDefault(); 
-    const formData = new FormData(e.target);
-    const data = new URLSearchParams(formData);
-    const objData = Object.fromEntries(data);
-    const message = formatMessage(objData);
-    
-    window.open(`https://wa.me/6289530768006?text=` + encodeURIComponent(message));
-    alert("Data berhasil diproses!");
-};
-
-const formatMessage = (obj) => {
-    const listPesanan = JSON.parse(obj.items).map((item) => {
-        return `- ${item.name} (${item.quantity} x ${rupiah(item.total)})\n`;
-    }).join('');
-
-    return `Data Customer:
-Nama: ${obj.name}
-No HP / WA: ${obj.phone}
-
-Data Pesanan:
-${listPesanan}
-Total: ${rupiah(obj.total)}
-
-Terima Kasih.`;
-};
-
 // Konversi Angka ke Format Rupiah
 const rupiah = (number) => {
   return new Intl.NumberFormat('id-ID', {
@@ -204,10 +176,10 @@ const kirimData = (e) => {
   const items = JSON.parse(data.items);
 
   // Format Pesan WhatsApp
-  let message = `*Detail Pesanan Bakso Naufal*\n\n`;
+  let message = `Data Custumer Pesanan Bakso Naufal\n\n`;
   message += `Nama: ${data.name}\n`;
-  message += `Alamat: ${data.phone}\n\n`;
-  message += `*Daftar Pesanan:*\n`;
+  message += `Alamat: ${data.address}\n\n`;
+  message += `Daftar Pesanan:\n`;
 
   items.forEach((item) => {
     message += `- ${item.name} (${item.quantity}x) = ${rupiah(item.total)}\n`;
