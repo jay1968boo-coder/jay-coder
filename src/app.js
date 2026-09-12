@@ -54,14 +54,14 @@ document.addEventListener("alpine:init", () => {
         name: "Susu/Kopi Susu",
         img: "img/product/copi-susu.jpg",
         price: 5000,
-        desc: "Kopi susu kami adalah perpaduan rasa pahit khas kopi dengan tekstur susu yang lembut dan creamy.",
+        desc: "Kesegaran es teh manis penyegar setelah makan bakso.",
       },
       {
         id: 8,
         name: "Kopi Hitam",
         img: "img/product/kopi-hitam.jpg",
         price: 5000,
-        desc: "Minuman legendaris yang membuat kamu lebih bersemangat.",
+        desc: "Kesegaran es marimas penyegar setelah makan bakso.",
       },
       {
         id: 9,
@@ -263,9 +263,20 @@ const formatMessage = (obj) => {
     })
     .join("");
 
+  // Tambahkan catatan otomatis di WhatsApp jika memilih TF atau QRIS
+  let instruksiBayar = "";
+  if (obj.payment === "Transfer Bank") {
+    instruksiBayar =
+      "\n\n*Silakan Transfer Ke:*\nBank BCA: 1234567890\na/n Naufal Bakso\n_(Mohon lampirkan bukti transfer setelah ini)_";
+  } else if (obj.payment === "QRIS") {
+    instruksiBayar =
+      "\n\n*Pembayaran via QRIS:*\nSilakan scan barcode QRIS yang tersedia di kasir / minta admin kirim gambar QRIS saat membalas pesan ini.";
+  }
+
   return `Data Customer:
 Nama   : ${obj.name}
 Alamat : ${obj.address}
+Bayar  : ${obj.payment}${instruksiBayar}
 
 Data Pesanan:
 ${listPesanan}
