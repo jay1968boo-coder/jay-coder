@@ -267,7 +267,7 @@ const formatMessage = (obj) => {
   let instruksiBayar = "";
   if (obj.payment === "Transfer Bank") {
     instruksiBayar =
-      "\n\n*Silakan Transfer Ke:*\nBank BCA: 1234567890\na/n Naufal Bakso\n_(Mohon lampirkan bukti transfer setelah ini)_";
+      "\n\n*Silakan Transfer Ke:*\nBank MANDIRI: 114-00-0543284-7\na/n Netty Herawati\n_(Mohon lampirkan bukti transfer setelah ini)_";
   } else if (obj.payment === "QRIS") {
     instruksiBayar =
       "\n\n*Pembayaran via QRIS:*\nSilakan scan barcode QRIS yang tersedia di kasir / minta admin kirim gambar QRIS saat membalas pesan ini.";
