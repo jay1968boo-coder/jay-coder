@@ -400,6 +400,12 @@ body{
     height: 25%;
     border-radius: 50%;
     width: 100%;
+    object-fit: cover;
+    transition: 0.5s ease;
+}
+
+.menu .menu-card img:hover{
+    transform: scale(1.2);
 }
 
 .menu .row .menu-card .menucard-title{
@@ -417,7 +423,8 @@ body{
 .products .product-card{
     text-align: center;
     border: 1px solid #666;
-    padding: 2rem;
+    border-radius: 10px;
+    padding: 1rem;
 }
 
 .products .product-icons{
@@ -449,6 +456,13 @@ body{
 
 .products .product-image img{
     height: 25rem;
+    border-radius: 10px;
+    object-fit: cover;
+    transition: 0.5s ease;
+}
+
+.products .product-image img:hover{
+    transform: scale(1.2);
 }
 
 .products .product-content h3{
