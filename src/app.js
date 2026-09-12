@@ -249,7 +249,7 @@ window.kirimData = function (e) {
     Alpine.store("cart").clear();
   }
 
-  // 3. BARIS PERBAIKAN: Kosongkan isi input teks Nama & Alamat secara aman dari sisi JavaScript
+  // 3. BARIS PERBAIKAN: Kosongkan isi input teks Nama dan Alamat secara aman dari sisi JavaScript
   const formFormular = e.target;
   if (formFormular) {
     formFormular.reset(); // Mengosongkan kotak input fisik tanpa merusak struktur render Alpine
