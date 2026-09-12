@@ -51,17 +51,17 @@ document.addEventListener("alpine:init", () => {
       },
       {
         id: 7,
-        name: "Kopi Susu",
+        name: "Susu/Kopi Susu",
         img: "img/product/copi-susu.jpg",
         price: 5000,
-        desc: "Kesegaran es teh manis penyegar setelah makan bakso.",
+        desc: "Kopi susu kami adalah perpaduan rasa pahit khas kopi dengan tekstur susu yang lembut dan creamy.",
       },
       {
         id: 8,
         name: "Kopi Hitam",
         img: "img/product/kopi-hitam.jpg",
         price: 5000,
-        desc: "Kesegaran es marimas penyegar setelah makan bakso.",
+        desc: "Minuman legendaris yang membuat kamu lebih bersemangat.",
       },
       {
         id: 9,
