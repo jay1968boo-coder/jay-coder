@@ -104,13 +104,14 @@
         </h4>
 
         <!-- FORM CHECKOUT -->
-        <div
-          class="form-container"
-          x-show="$store.cart.items.length"
-          x-data="{ name: '', address: '' }"
-        >
-          <!-- @submit.prevent otomatis menghentikan refresh halaman dan memanggil fungsi kirimData -->
-          <form id="checkoutForm" @submit.prevent="kirimData($event)">
+        <!-- Data nama, address, dan status dikirim dikunci di satu container -->
+        <div class="form-container" x-data="{ name: '', address: '' }">
+          <!-- FORM UTAMA: Hanya muncul jika ada item di dalam keranjang belanja -->
+          <form
+            id="checkoutForm"
+            x-show="$store.cart.items.length > 0"
+            @submit.prevent="kirimData($event)"
+          >
             <input
               type="hidden"
               name="items"
@@ -121,7 +122,7 @@
             <h5>Customer Detail</h5>
 
             <label for="name">
-              <span>Name</span>
+              <span>Nama : </span>
               <input
                 type="text"
                 name="name"
@@ -132,7 +133,7 @@
             </label>
 
             <label for="address">
-              <span>Address</span>
+              <span>Alamat : </span>
               <input
                 type="text"
                 name="address"
@@ -143,14 +144,44 @@
               />
             </label>
 
-            <!-- Tombol Checkout -->
+            <!-- Metode Pembayaran start -->
+
+            <label>
+              <span>Metode Pembayaran:</span>
+              <div style="margin-top: 5px; display: flex; gap: 15px">
+                <label
+                  style="display: inline-flex; align-items: center; gap: 5px"
+                >
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="Tunai (COD)"
+                    checked
+                  />
+                  Tunai (COD)
+                </label>
+                <label
+                  style="display: inline-flex; align-items: center; gap: 5px"
+                >
+                  <input type="radio" name="payment" value="Transfer Bank" />
+                  Transfer Bank (TF)
+                </label>
+                <label
+                  style="display: inline-flex; align-items: center; gap: 5px"
+                >
+                  <input type="radio" name="payment" value="QRIS" /> QRIS /
+                  E-Wallet
+                </label>
+              </div>
+            </label>
+            <!-- Metode Pembayaran End -->
+
             <button
               class="checkout-button"
               :class="{ 'disabled': !name || !address }"
               type="submit"
               id="checkout-button"
               :disabled="!name || !address"
-              style="pointer-events: auto !important; cursor: pointer"
             >
               Checkout
             </button>
