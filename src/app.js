@@ -72,6 +72,12 @@ document.addEventListener("alpine:init", () => {
       },
     ],
 
+    async init() {
+            // Mengambil data produk secara asinkron saat komponen siap
+            const response = await fetch('api/products.json'); 
+            this.products = await response.json();
+        }
+        
     // Getter untuk memfilter item berdasarkan kata kunci search di store
     get filteredItems() {
       const keyword = Alpine.store("search").keyword.toLowerCase();
