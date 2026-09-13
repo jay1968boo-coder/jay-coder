@@ -354,15 +354,15 @@
         <form action="" method="POST">
           <div class="input-group">
             <i data-feather="user"></i>
-            <input type="text" placeholder="Nama" />
+            <input type="text" placeholder="Nama" required />
           </div>
           <div class="input-group">
-            <i data-feather="mail"></i>
-            <input type="email" placeholder="Email" />
+            <i data-feather="map-pin"></i>
+            <input type="text" placeholder="Alamat Lengkap" required />
           </div>
           <div class="input-group">
             <i data-feather="phone"></i>
-            <input type="tel" placeholder="No HP" />
+            <input type="tel" placeholder="No. HP / WhatsApp" required  />
           </div>
           <button type="submit" class="btn">Kirim Pesan</button>
         </form>
@@ -453,7 +453,54 @@
 
     <!-- Feather Icons Init -->
     <script>
-      feather.replace();
+      // Memastikan HTML sudah selesai dimuat sepenuhnya oleh browser
+      document.addEventListener("DOMContentLoaded", function () {
+        // 1. Mengaktifkan Feather Icons
+        feather.replace();
+
+        // 2. Mengambil elemen form
+        const formKontak = document.getElementById("contactForm");
+
+        // Validasi jika form ditemukan, baru pasang event listener
+        if (formKontak) {
+          formKontak.addEventListener("submit", function (event) {
+            event.preventDefault(); // Mencegah reload halaman
+
+            // GANTI DENGAN NOMOR WHATSAPP ANDA (Gunakan kode negara 62)
+            const nomorTujuan = "6289530768006";
+
+            // Mengambil data input
+            const nama = this.querySelector('input[placeholder="Nama"]').value;
+            const alamat = this.querySelector(
+              'input[placeholder="Alamat Lengkap"]',
+            ).value;
+            const phone = this.querySelector(
+              'input[placeholder="Nomor HP / WhatsApp"]',
+            ).value;
+
+            // Menyusun format pesan WhatsApp (Menggunakan %0A untuk enter/baris baru)
+            const pesanTeks =
+              `Assalamu 'alaikum, saya ingin melakukan pemesanan / bertanya lebih lanjut.%0A%0A` +
+              `*Data Kontak:*%0A` +
+              `- Nama              : ${encodeURIComponent(nama)}%0A` +
+              `- Alamat            : ${encodeURIComponent(alamat)}%0A` +
+              `- No. HP / WhatsApp : ${encodeURIComponent(phone)}`;
+
+            // Pembuatan link wa.me yang sudah diperbaiki tanda tanyanya (?)
+            const urlWhatsApp = `https://wa.me/6289530768006?text=${pesanTeks}`;
+
+            // Membuka WhatsApp di tab baru
+            window.open(urlWhatsApp, "_blank");
+
+            // Reset formulir setelah dikirim
+            this.reset();
+          });
+        } else {
+          console.error(
+            "Elemen dengan id 'contactForm' tidak ditemukan di HTML Anda.",
+          );
+        }
+      });
     </script>
 
     <!-- My JavaScript -->
