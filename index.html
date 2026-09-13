@@ -25,10 +25,9 @@
 
     <!-- AlpineJS -->
     <script
-    defer
-    src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
     ></script>
-    
   </head>
 
   <body>
@@ -362,7 +361,7 @@
           </div>
           <div class="input-group">
             <i data-feather="phone"></i>
-            <input type="tel" placeholder="No. HP / WhatsApp" required  />
+            <input type="tel" placeholder="Nomor HP / WhatsApp" required />
           </div>
           <button type="submit" class="btn">Kirim Pesan</button>
         </form>
@@ -373,9 +372,16 @@
     <!-- Footer Start -->
     <footer>
       <div class="socials">
-        <a href="#"><i data-feather="instagram"></i></a>
-        <a href="#"><i data-feather="twitter"></i></a>
-        <a href="#"><i data-feather="facebook"></i></a>
+        <a href="#" id="btn-instagram" target="_blank"
+          ><i data-feather="instagram"></i
+        ></a>
+        <a href="#" id="btn-facebook" target="_blank"
+          ><i data-feather="facebook"></i
+        ></a>
+        <!-- Catatan: Ikon Threads menggunakan variasi ikon 'at-sign' atau 'message-circle' karena pustaka Feather bawaan belum menyediakan logo resmi Threads -->
+        <a href="#" id="btn-threads" target="_blank"
+          ><i data-feather="at-sign"></i
+        ></a>
       </div>
 
       <div class="links">
