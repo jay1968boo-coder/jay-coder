@@ -371,6 +371,8 @@ body{
 /* Menu Section */
 .menu h2,
 .contact h2{
+    text-align: center;
+    font-size: 2.6rem;
     margin-bottom: 1rem;
 }
 .menu p,
@@ -499,8 +501,16 @@ body{
 
 .contact .row form{
     flex: 1 1 45rem;
+    padding: 5rem 4rem;
+    background-color: #ffffff;
+    /* border-radius: 8px; */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* flex: 1 1 45rem;
     padding: 5rem 2rem;
-    text-align: center;
+    text-align: center; */
 }
 
 .contact .row form .input-group{
@@ -508,8 +518,19 @@ body{
     align-items: center;
     margin-top: 2rem;
     background-color: var(--bg);
-    border: 1px solid #eee;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
     padding-left: 2rem;
+}
+
+.contact .row .input-group i {
+  width: 100%;
+  padding: 1.2rem;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  color: #333;
 }
 
 .contact .row form .input-group input{
@@ -520,15 +541,22 @@ body{
     color: #fff;
 }
 
-.contact .row form .btn{
-    margin-top: 3rem;
-    display: inline-block;
-    padding: 1rem 3rem;
-    font-size: 1.7rem;
-    color: #fff;
-    background-color: var(--primary);
-    cursor: pointer;
+/* Gaya Tombol Kirim */
+.contact .row .btn {
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  font-size: 1.7rem;
+  color: #fff;
+  background-color: #b6895b;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-weight: bold;
+}
 
+.contact .row .btn:hover {
+  background-color: #9c7148;
 }
 
 /* Footer */
