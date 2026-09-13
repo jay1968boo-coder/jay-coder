@@ -6,10 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Warung Bakso Modern</title>
 
-    <style>
-      [x-cloak] { display: none !important; }
-    </style>
-
     <!-- Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -26,15 +22,18 @@
 
     <!-- App -->
     <script src="src/app.js" async></script>
-
+    
     <!-- AlpineJS -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
     
   </head>
 
   <body>
     <!-- Navbar Start -->
-    <nav class="navbar" x-data x-cloak>
+    <nav class="navbar" x-data>
       <a href="#" class="navbar-logo">bakso<span>Naufal</span></a>
 
       <div class="navbar-nav">
@@ -210,7 +209,7 @@
     <section class="products" id="products" x-data="products">
       <h2><span>Produk Unggulan</span> Kami</h2>
 
-      <div class="row" x-cloak>
+      <div class="row">
         <template
           x-for="(item, index) in filteredItems"
           :key="`product-${item.id}-${index}`"
